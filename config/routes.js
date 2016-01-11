@@ -21,6 +21,11 @@
  */
 
 module.exports.routes = {
+    
+    'post /user/add': {
+        controller: 'User',
+        action: 'addUser'
+    }
 
 
   /***************************************************************************
