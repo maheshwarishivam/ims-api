@@ -7,28 +7,32 @@
 
 module.exports = {
 	addUser: function(req, res) {
-            sails.log.silly("Entering addUser of User Controller");
-            var name = req.param('name',null);
-            
+            var domain = req.param('domain',null);
+            var appUserId = req.param('app_user_id',null);
             
             //TODO: Validate
             //return res.badRequest("message", data);
             var user = {
-              name: name,
-              
+              domain: domain,
+              appUserId:appUserId      
             };
+            var condition = {
+                domain : domain ,
+                appUserId : appUserId
+              }
             
-            console.log();
-            sails.models.user.create(user, function(err, result) {
+            sails.models.user.findOrCreate( condition , user , function(err, result){
                if(err) {
-                   sails.log.error("Error in blah...", err);
+                   sails.log.error("Error", err);
                    console.log(err);
                    return res.serverError("Error Occured", err);
-               }
-               sails.log.verbose("user created succesfully", result);
-               return res.ok("User created succesfully",result);
-            });
+                }
+                sails.log.verbose("user created succesfully");
+                return res.ok("user created succesfully",result);
+              
+          });
         }
+
 
     
 };

@@ -29,7 +29,7 @@ module.exports = {
         },
         domains: {
             collection: 'domain',
-            via: 'package'
+            via: 'subscription'
         }
     }
 };

@@ -7,8 +7,13 @@
 
 module.exports = {
     attributes: {
-        contact: {
-            model: 'Contacts'
+        sender: {
+            model: 'User',
+            required: true
+        },
+        receiver: {
+            model: 'User',
+            required: true
         },
         message: {
             type: 'string',

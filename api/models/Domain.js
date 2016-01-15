@@ -14,19 +14,16 @@ module.exports = {
         mobile: {
             type: 'integer',
             required: true
+            //unique: true
         },
         email: {
             type: 'string',
             email: true,
             required: false
         },
-        isFree: {
-            type: 'boolean',
-            required: true,
-            defaultsTo: true
-        },
-        package:{
-            model:'Packages'
+        subscription:{ 
+            model:'Subscription',
+            required: false
         },
         startDate: {
             type: 'datetime',
@@ -36,22 +33,10 @@ module.exports = {
             type: 'datetime',
             required: false
         },
-        secretKey: {
-            type: 'string',
-            required: false
-        },
-        authKey: {
-            type: 'string',
-            required: false
-        },
         status: {
             type: 'boolean',
             required: true,
             defaultsTo: true
-        },
-        domainUser : {
-            collection: 'DomainUser',
-            via: 'domain'
         }
     }
 };

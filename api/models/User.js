@@ -7,31 +7,26 @@
 
 module.exports = {
     attributes: {
-        name: {
-            type: 'string',
-            required: false,
-            minLength: 3
-        },
-        mobile: {
+        domain: {
             type: 'integer',
-            required: true,
-            unique: true
+            required: true
         },
-        email: {
-            type: 'email',
-            required: false
-        },
-        isBlocked: {
-            type: 'boolean',
-            required: true,
-            defaultsTo: false
-        },
-        domainUser: {
-            required: true,
-            collection: 'DomainUser',
-            via: 'user'
+        appUserId: {
+            type: 'string',
+            required: true
         }
-    }
+    },
+    getUserDetail: function(data, callback) {
+            sails.models.user.find(data , function(err, result){
+               if(err) {
+                   sails.log.error("Error", err);
+                   console.log(err);
+                   return callback(err);
+                   //return res.serverError("Error Occured", err);
+                }
+                return callback(null,result);
+           });
+        } 
    
 };
 
