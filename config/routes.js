@@ -50,6 +50,11 @@ module.exports.routes = {
     'get /conversation/:uuid1/:uuid2': {
         controller: 'Message',
         action: 'conversation'
+    },
+
+    'get /chat/list/:uuid': {
+        controller: 'Message',
+        action: 'conversationList'
     }
 
   /***************************************************************************

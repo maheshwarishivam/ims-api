@@ -19,11 +19,6 @@ module.exports = {
             type: 'string',
             required: true
         },
-        isReverse: {
-            type: 'boolean',
-            required: false,
-            defaultsTo: false
-        },
         sentOn: {
             type: 'datetime',
             required: false,
@@ -38,11 +33,7 @@ module.exports = {
             type: 'datetime',
             required: false,
             defaultsTo: null
-        },
-        getDeliveryStatus: function() {
-            //TODO: Implement this
-            return 1;
-        } 
+        }
     }
 };
 

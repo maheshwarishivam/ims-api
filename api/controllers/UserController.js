@@ -24,7 +24,6 @@ module.exports = {
             sails.models.user.findOrCreate( condition , user , function(err, result){
                if(err) {
                    sails.log.error("Error", err);
-                   console.log(err);
                    return res.serverError("Error Occured", err);
                 }
                 sails.log.verbose("user created succesfully");

@@ -26,7 +26,6 @@ module.exports = {
               endDate:endDate
             };
             
-            console.log();
             sails.models.domain.create(domain, function(err, result) {
                if(err) {
                    sails.log.error("Error", err);
