@@ -55,8 +55,13 @@ module.exports.routes = {
     'get /chat/list/:uuid': {
         controller: 'Message',
         action: 'conversationList'
+    },
+
+    'get /cron/message': {
+        controller: 'Cron',
+        action: 'cronDeleteMessage'
     }
-    
+
 
   /***************************************************************************
   *                                                                          *
