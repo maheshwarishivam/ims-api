@@ -56,6 +56,7 @@ module.exports.routes = {
         controller: 'Message',
         action: 'conversationList'
     }
+    
 
   /***************************************************************************
   *                                                                          *
