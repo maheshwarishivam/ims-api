@@ -7,7 +7,7 @@
 
 module.exports = {
 	cronDeleteMessage : function(req, res) {
-		var day=sails.config.myconf.MSG_TIME;
+		var day=sails.config.cronConstants.msgTime;
 
 		var date = new Date();
 		console.log(date);
@@ -15,9 +15,9 @@ module.exports = {
 		console.log(date);
 
 		
-		sails.models.message.destroy().where({
-		    	sentOn: {'<=': date} ,
-		   		readOn : {'!=': null}
+		sails.models.message.destroy({
+		    	sentOn: {'<=': date},
+		   		readOn : {'!': null}
 			}).exec(function(err){
 			if(err) {
                sails.log.error("Error", err);
