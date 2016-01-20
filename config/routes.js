@@ -21,7 +21,42 @@
  */
 
 module.exports.routes = {
+    
+    'post /users/add': {
+        controller: 'User',
+        action: 'addUser'
+    },
 
+    'post /subscriptions/add': {
+        controller: 'Subscription',
+        action: 'addSubscription'
+    },
+
+    'post /domains/add': {
+        controller: 'Domain',
+        action: 'addDomain'
+    },
+
+    'post /messages/sent': {
+        controller: 'Message',
+        action: 'sentMessage'
+    },
+
+    'put /messages/read': {
+        controller: 'Message',
+        action: 'readMessage'
+    },
+
+    'get /conversation/:uuid1/:uuid2': {
+        controller: 'Message',
+        action: 'conversation'
+    },
+
+    'get /chat/list/:uuid': {
+        controller: 'Message',
+        action: 'conversationList'
+    }
+    
 
   /***************************************************************************
   *                                                                          *
