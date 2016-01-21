@@ -21,23 +21,11 @@ module.exports = {
 			}).exec(function(err){
 			if(err) {
                sails.log.error("Error", err);
-               return res.serverError("Error Occured", err);
+               return res.badRequest("Error Occured", err);
             }
 			console.log('The record has been deleted');
 			return res.ok("The record has been deleted",date);
 		});
-		/*var condition = {
-			sentOn: {'<=': date} ,
-			readOn : {'!=': null}
-		}*/	
-		/*sails.models.message.destroy(condition).exec(function deleteCB(err){
-			if(err) {
-               sails.log.error("Error", err);
-               return res.serverError("Error Occured", err);
-            }
-			console.log('The record has been deleted');
-			return res.ok("The record has been deleted",date);
-		});*/
 		
 	}
 	
