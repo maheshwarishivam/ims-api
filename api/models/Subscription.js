@@ -31,6 +31,18 @@ module.exports = {
             collection: 'domain',
             via: 'subscription'
         }
+    },
+    validation_messages: { 
+        label: {
+            required : 'label is required'
+        },
+        description: {
+            required : 'description is required'
+        },
+        maxUserLimit: {
+            required : 'max user limit is required',
+            integer  : 'max user limit should be numeric'
+        }
     }
 };
 

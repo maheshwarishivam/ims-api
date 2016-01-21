@@ -27,13 +27,18 @@ module.exports = {
             };
             
             sails.models.domain.create(domain, function(err, result) {
-               if(err) {
-                   sails.log.error("Error", err);
-                   console.log(err);
-                   return res.serverError("Error Occured", err);
-               }
-               sails.log.verbose("Domain created succesfully", result);
-               return res.ok("Domain created succesfully",result);
+              if(err) {
+                  if (err.ValidationError) {
+                      var domain=sails.models.domain;
+                      errors = sails.services.handlevalidation.transformValidation(domain, err.ValidationError);
+                      return res.badRequest("Error Occured", errors);
+                  } else {
+                     sails.log.error("Error", err);
+                     return res.badRequest("Error Occured", err);
+                  }
+              }
+              sails.log.verbose("Domain created succesfully", result);
+              return res.ok("Domain created succesfully",result);
             });
         }
 	
