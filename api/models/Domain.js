@@ -8,8 +8,8 @@
 module.exports = {
     attributes: {
         name: {
-            type: 'string',
-            required: false
+            type: 'alpha',
+            required: true
         },
         mobile: {
             type: 'integer',
@@ -37,6 +37,25 @@ module.exports = {
             type: 'boolean',
             required: true,
             defaultsTo: true
+        }
+    },
+    validation_messages: { 
+        name: {
+            required : 'name is required',
+            alpha    : 'name can contains only letters'
+        },
+        mobile: {
+            required : 'mobile is required',
+            integer  : 'mobile number should be numeric'
+        },
+        email: {
+           email    : 'invalid email address'
+        },
+        startDate: {
+            datetime : 'invalid start date'
+        },
+        endDate: {
+           datetime : 'invalid end date'
         }
     }
 };

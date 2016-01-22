@@ -23,8 +23,14 @@ module.exports = {
             
             sails.models.subscription.create(subscription, function(err, result) {
                if(err) {
-                   sails.log.error("Error", err);
-                   return res.serverError("Error Occured", err);
+                  if (err.ValidationError) {
+                      var subscription=sails.models.subscription;
+                      errors = sails.services.handlevalidation.transformValidation(subscription, err.ValidationError);
+                      return res.badRequest("Error Occured", errors);
+                  } else {
+                     sails.log.error("Error", err);
+                     return res.badRequest("Error Occured", err);
+                  }
                }
                sails.log.verbose("Subscription created succesfully", result);
                return res.ok("Subscription created succesfully",result);

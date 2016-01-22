@@ -110,15 +110,24 @@ module.exports = {
 						}]
 					}, function(err, results) {
 						    if(err) {
-								sails.log.error("Error", err);
-								return res.serverError("Error Occured", err);
+								if (err.ValidationError) {
+									var message=sails.models.message;
+									errors = sails.services.handlevalidation.transformValidation(message, err.ValidationError);
+									return res.badRequest("Error Occured", errors);
+								} else {
+									sails.log.error("Error", err);
+									return res.badRequest("Error Occured", err);
+								}
 							}
 							sails.log.verbose("Message created succesfully");
 							return res.ok("Message created succesfully",results.createMessage);
 					});
 				} else {
+					var error={};
+					error['user']=[];
+					error.user.push({ invalidUser : 'invalid sender Or receiver appUserId'});
 					sails.log.verbose("Invalid Sender Or Receiver User");
-					return res.badRequest("Invalid Sender Or Receiver User");
+					return res.badRequest("Error Occured",error);
 				}
 	        });
 		},
@@ -218,8 +227,11 @@ module.exports = {
 					return res.ok("Message status updated succesfully");
 				});
 			} else {
+				var error={};
+				error['user']=[];
+				error.user.push({ invalidUser : 'invalid sender Or receiver appUserId'});
 				sails.log.verbose("Invalid Sender Or Receiver User");
-				return res.badRequest("Invalid Sender Or Receiver User");
+				return res.badRequest("Error Occured",error);
 			}
         });
 	},
@@ -283,8 +295,11 @@ module.exports = {
 		                return res.ok("Chat List",conversationArr);
 					});
 				} else {
+					var error={};
+					error['user']=[];
+					error.user.push({ invalidUser : 'invalid sender appUserId'});
 					sails.log.verbose("Invalid Sender User");
-					return res.badRequest("Invalid Sender User");
+					return res.badRequest("Error Occured",error);
 				}
 			});
 	},
@@ -351,8 +366,11 @@ module.exports = {
 							return res.ok("Conversation List",conversationArr);
 					});
 				} else {
+					var error={};
+					error['user']=[];
+					error.user.push({ invalidUser : 'invalid sender Or receiver appUserId'});
 					sails.log.verbose("Invalid Sender Or Receiver User");
-					return res.badRequest("Invalid Sender Or Receiver User");
+					return res.badRequest("Error Occured",error);
 				}
             });
 		}

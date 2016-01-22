@@ -34,6 +34,11 @@ module.exports = {
             required: false,
             defaultsTo: null
         }
+    },
+    validation_messages: { 
+        message: {
+            required : 'message is required'
+        },
     }
 };
 

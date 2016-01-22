@@ -16,15 +16,17 @@ module.exports = {
               domain: domain,
               appUserId:appUserId      
             };
-            var condition = {
-                domain : domain ,
-                appUserId : appUserId
-              }
             
-            sails.models.user.findOrCreate( condition , user , function(err, result){
-               if(err) {
-                   sails.log.error("Error", err);
-                   return res.serverError("Error Occured", err);
+            sails.models.user.create(user , function(err, result){
+              if(err) {
+                  if (err.ValidationError) {
+                      var User=sails.models.user;
+                      errors = sails.services.handlevalidation.transformValidation(User, err.ValidationError);
+                      return res.badRequest("Error Occured", errors);
+                  } else {
+                     sails.log.error("Error", err);
+                     return res.badRequest("Error Occured", err);
+                  }
                 }
                 sails.log.verbose("user created succesfully");
                 return res.ok("user created succesfully",result);
