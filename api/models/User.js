@@ -18,7 +18,7 @@ module.exports = {
     },
     validation_messages: { 
         appUserId: {
-            required: 'name is required',
+            required: 'appUserId is required',
             alphanumericdashed : 'appUserId can contains only numbers,letters or dashes'
         }
     },

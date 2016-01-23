@@ -347,19 +347,23 @@ module.exports = {
 								return res.serverError("Error Occured", err_msg);
 							}
 							var data=[];
-							result_msg.forEach(function(res) {
-								if(res.sender == sender){
-									res.isReverse = false;
-									res.sender_name=req.param('uuid1');
-									res.receiver_name=req.param('uuid2');
-									
-								} else {
-									res.isReverse = true;
-									res.sender_name=req.param('uuid2');
-									res.receiver_name=req.param('uuid1');
-								}
-								
-								data.push(res);
+							var compareMsg = function (a,b) {
+							  if (a.sentOn < b.sentOn)
+							    return -1;
+							  else if (a.sentOn > b.sentOn)
+							    return 1;
+							  else 
+							    return 0;
+							}
+							result_msg.sort(compareMsg);
+							result_msg.forEach(function(msg) {
+								data.push({
+									message: msg.message,
+									sendOn: msg.sentOn,
+									deliveredOn: msg.deliveredOn,
+									readOn: msg.readOn,
+									isReverse: (msg.sender == sender)?false:true
+								});
 							});
 							conversationArr= data;
 							sails.log.verbose("Conversation List");
