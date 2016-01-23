@@ -60,7 +60,13 @@ module.exports.routes = {
         controller: 'Message',
         action: 'conversationList',
         cors: true
+    },
+
+    'get /cron/message': {
+        controller: 'Cron',
+        action: 'cronDeleteMessage'
     }
+
 
   /***************************************************************************
   *                                                                          *

@@ -12,7 +12,10 @@ module.exports = {
             var receiver= req.param('receiver',null);
             var sentOn 	= req.param('senton',null);
             var domain	= req.headers['api_key'];
-           
+            
+            if(!sentOn){
+            	sentOn = new Date();
+            }
             //TODO: Validate
             //return res.badRequest("message", data);
             var condition = 
@@ -135,6 +138,9 @@ module.exports = {
             var readOn 		= req.param('readon',null);
             var domain		= req.headers['api_key'];
             
+            if(!readOn){
+            	readOn = new Date();
+            }
             //TODO: Validate
             //return res.badRequest("message", data);
             var condition = 
@@ -160,8 +166,8 @@ module.exports = {
 					}
 
 					condition = {
-				            sender   : sender , 
-				            receiver : receiver ,
+				            sender   : receiver , 
+				            receiver : sender ,
 				            readOn 	 : null
 					}
 					async.auto({
@@ -174,12 +180,14 @@ module.exports = {
 							});
 						},
 						updateMessage: ['findMessage',function(callback,result) {
+							console.log(condition);
 							sails.models.message.update(condition , {readOn : readOn} ,
 								function(err1,result1){
-									if(err) {
-									callback(err);
+									if(err1) {
+									callback(err1);
 								}
-								callback(null,result);
+								console.log(result1);
+								callback(null,result1);
 							});
 						}],
 
@@ -195,18 +203,18 @@ module.exports = {
 							sails.models.contact.findOne(contact_condition , 
 								function(err_contact, res_contact) {
 									if(err_contact) {
-										callback(err);	
+										callback(err_contact);	
 									}
 									if(res_contact.sender == sender ){
 										res_contact.senderUnreadCount   = 0;
 									} else {
 										res_contact.receiverUnreadCount = 0;
 									}
-									res_contact.save(function(err_contact,res_contact) {
-								        if(err_contact) {
-											callback(err_contact);	
+									res_contact.save(function(err_save,res_save) {
+								        if(err_save) {
+											callback(err_save);	
 										}
-										callback(null,res_contact);
+										callback(null,res_save);
 									});
 								});
 						}]
