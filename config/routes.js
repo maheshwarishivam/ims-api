@@ -24,7 +24,8 @@ module.exports.routes = {
     
     'post /users/add': {
         controller: 'User',
-        action: 'addUser'
+        action: 'addUser',
+        cors: true
     },
 
     'post /subscriptions/add': {
@@ -39,22 +40,26 @@ module.exports.routes = {
 
     'post /messages/sent': {
         controller: 'Message',
-        action: 'sentMessage'
+        action: 'sentMessage',
+        cors: true
     },
 
     'put /messages/read': {
         controller: 'Message',
-        action: 'readMessage'
+        action: 'readMessage',
+        cors: true
     },
 
     'get /conversation/:uuid1/:uuid2': {
         controller: 'Message',
-        action: 'conversation'
+        action: 'conversation',
+        cors: true
     },
 
     'get /chat/list/:uuid': {
         controller: 'Message',
-        action: 'conversationList'
+        action: 'conversationList',
+        cors: true
     }
 
   /***************************************************************************
